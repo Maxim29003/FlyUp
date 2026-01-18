@@ -4,6 +4,7 @@ import RootStack from './routes/RootStack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BootSplash from 'react-native-bootsplash';
 import { ErrorBoundary } from '@components/ErrorBoundary/ErrorBoundary';
+import { gameStore } from '@store/GameStore';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
           <NavigationContainer
             onReady={async () => {
               await BootSplash.hide({ fade: true });
+              gameStore.reset()
             }}
           >
             <RootStack />

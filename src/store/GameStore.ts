@@ -17,7 +17,7 @@ class GameStore {
     makeAutoObservable(this);
     makePersistable(this, {
       name: 'GameStore',
-      properties: ['score', 'isGameOver', 'speed', 'results'],
+      properties: ['score', 'speed', 'results'],
       storage: {
         getItem: async (key: string): Promise<string | null> => {
           const value = storage.getString(key);
