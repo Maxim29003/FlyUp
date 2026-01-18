@@ -1,5 +1,5 @@
 import MainLayout from '@layouts/MainLayout/MainLayout';
-import { Label, useHeaderHeight } from '@react-navigation/elements';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { gameStore } from '@store/GameStore';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback } from 'react';
@@ -15,7 +15,6 @@ import Animated, {
 
 import GameOverOverlay from './components/GameOverOverlay/GameOverOverlay';
 import { useFocusEffect } from '@react-navigation/native';
-import EnemyPlaneIcon from '@assets/svg/EnemyPlaneIcon';
 import PlaneIcon from '@assets/svg/PlaneIcon';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { scheduleOnRN } from 'react-native-worklets';
@@ -32,7 +31,7 @@ const GameScreen = observer(() => {
   const speed = 500;
   const lanes = 5;
   const laneWidth = width / lanes;
-  const enemyPlaneSize = laneWidth * 0.8;
+  const enemyPlaneSize = 40;
 
   const planeSize = Math.min(width * 0.4, 200);
 
@@ -47,7 +46,7 @@ const GameScreen = observer(() => {
   };
 
   const enemyPlaneX = useSharedValue(randomX());
-  const enemyPlaneY = useSharedValue(-enemyPlaneSize);
+  const enemyPlaneY = useSharedValue(-(enemyPlaneSize + 20));
 
   useFocusEffect(
     useCallback(() => {
@@ -98,7 +97,7 @@ const GameScreen = observer(() => {
   const reset = () => {
     isGameOver.value = false;
     planeX.value = width / 2 - planeSize / 2;
-    enemyPlaneY.value = -enemyPlaneSize;
+    enemyPlaneY.value = -(enemyPlaneSize + 20);
     gameStore.reset();
   };
 
@@ -136,17 +135,22 @@ const GameScreen = observer(() => {
     transform: [{ translateX: planeX.value }],
   }));
 
-  const AnimatedEnemyPlane = Animated.createAnimatedComponent(EnemyPlaneIcon);
   const AnimatedPlane = Animated.createAnimatedComponent(PlaneIcon);
 
   return (
     <MainLayout>
       <GestureDetector gesture={panGesture}>
         <View style={styles.absoluteFill}>
-          <AnimatedEnemyPlane
-            width={enemyPlaneSize}
-            height={enemyPlaneSize}
-            style={[enemyPlaneStyle, styles.enemyPlane]}
+          <Animated.View
+            style={[
+              enemyPlaneStyle,
+              styles.enemyPlane,
+              {
+                width: enemyPlaneSize,
+                height: enemyPlaneSize,
+                borderRadius: enemyPlaneSize / 2,
+              },
+            ]}
           />
           <AnimatedPlane
             width={planeSize}

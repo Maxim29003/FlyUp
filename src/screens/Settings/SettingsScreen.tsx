@@ -1,5 +1,5 @@
 import { Alert } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MainLayout from '@layouts/MainLayout/MainLayout';
 import UIText from '@ui/UIText/UIText';
 import { Colors } from '@styles/colors';
@@ -12,10 +12,15 @@ import { gameStore } from '@store/GameStore';
 import useAppNavigation from '@hooks/useAppNavigation';
 import { SCREENS } from '@routes/navigations.types';
 import { styles } from './styles';
+import { observer } from 'mobx-react-lite';
 
-const SettingsScreen = () => {
+const SettingsScreen = observer(() => {
   const [speed, setSpeed] = useState(gameStore.speed);
   const navigation = useAppNavigation();
+
+  useEffect(() => {
+    setSpeed(gameStore.speed);
+  }, [gameStore.speed]);
 
   return (
     <MainLayout>
@@ -66,6 +71,6 @@ const SettingsScreen = () => {
       </Column>
     </MainLayout>
   );
-};
+})
 
 export default SettingsScreen;

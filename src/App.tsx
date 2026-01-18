@@ -2,15 +2,23 @@ import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import RootStack from './routes/RootStack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import BootSplash from 'react-native-bootsplash';
+import { ErrorBoundary } from '@components/ErrorBoundary/ErrorBoundary';
 
 export default function App() {
   return (
-    <GestureHandlerRootView>
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <RootStack />
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <ErrorBoundary>
+      <GestureHandlerRootView>
+        <SafeAreaProvider>
+          <NavigationContainer
+            onReady={async () => {
+              await BootSplash.hide({ fade: true });
+            }}
+          >
+            <RootStack />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 }
