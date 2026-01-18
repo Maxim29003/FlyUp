@@ -18,10 +18,6 @@ const SettingsScreen = observer(() => {
   const [speed, setSpeed] = useState(gameStore.speed);
   const navigation = useAppNavigation();
 
-  useEffect(() => {
-    setSpeed(gameStore.speed);
-  }, [gameStore.speed]);
-
   return (
     <MainLayout>
       <UIText variant="heading" color={Colors.WHITE}>

@@ -28,7 +28,7 @@ const GameScreen = observer(() => {
   const headerHeight = useHeaderHeight();
   const insets = useSafeAreaInsets();
   const gameHeight = Math.max(0, height - headerHeight - insets.bottom);
-  const speed = 500;
+  const speed = gameStore.speed;
   const lanes = 5;
   const laneWidth = width / lanes;
   const enemyPlaneSize = 40;

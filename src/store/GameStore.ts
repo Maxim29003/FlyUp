@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { action, makeAutoObservable } from 'mobx';
 import { DEFAULT_RESULT, DEFAULT_SETTINGS, storage } from '@utils/MMKVStorage';
 import { GameResult } from '@appTypes/GameResultType';
 import uuid from 'react-native-uuid';
@@ -8,6 +8,8 @@ class GameStore {
   score = 0;
 
   isGameOver = false;
+
+  isHydrated = false;
 
   speed = DEFAULT_SETTINGS.speed;
 
@@ -32,7 +34,12 @@ class GameStore {
           storage.remove(key);
         },
       },
-    });
+    }).then(
+      action(persistStore => {
+        console.log("isHydrated", persistStore.isHydrated )
+        this.isHydrated = persistStore.isHydrated;
+      }),
+    );
   }
 
   increment() {
