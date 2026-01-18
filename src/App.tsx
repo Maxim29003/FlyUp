@@ -14,7 +14,6 @@ export default function App() {
           <NavigationContainer
             onReady={async () => {
               await BootSplash.hide({ fade: true });
-              gameStore.reset()
             }}
           >
             <RootStack />
