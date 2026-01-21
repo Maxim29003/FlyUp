@@ -24,6 +24,10 @@
 - react-native-community/slider
 - react-native-uuid
 
+## Demo
+
+📺 [Watch the video demonstration](https://youtu.be/W05j9FY6smU)
+
 ## Запуск проекта
 
 Перед запуском убедитесь, что окружение настроено по гайду React Native: https://reactnative.dev/docs/set-up-your-environment
